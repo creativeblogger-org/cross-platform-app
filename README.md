@@ -1,2 +1,2 @@
-# android-app
-Application mobile pour Creative Blogger
+# cross-platform-app
+Application cross-plateformes pour Creative Blogger
