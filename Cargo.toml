@@ -1,5 +1,5 @@
 [package]
-name = "creative_blogger"
+name = "creative-blogger"
 description = "Un blog participatif"
 version = "0.1.0"
 edition = "2021"
@@ -7,9 +7,11 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+mobile-entry-point = "0.1.0"
 dioxus = "0.3.2"
 reqwest = { version = "0.11.18", features = ["json"] }
 serde = { version = "1.0.164", features = ["derive"] }
+chrono = { version = "0.4.26", features = ["serde"] }
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
 dioxus-desktop = "0.3.0"
@@ -27,3 +29,13 @@ short_description = "Un blog participatif"
 long_description = """
 Ce blog a pour but de partager du savoir etcccccc
 """
+
+# leave the `lib` declaration
+# [lib]
+# crate-type = ["staticlib", "cdylib", "rlib"]
+
+
+# leave the binary it generates for us
+# [[bin]]
+# name = "dioxus-ios-demo-desktop"
+# path = "gen/bin/desktop.rs"

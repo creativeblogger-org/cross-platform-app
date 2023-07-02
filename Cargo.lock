@@ -328,6 +328,7 @@ dependencies = [
  "iana-time-zone",
  "js-sys",
  "num-traits",
+ "serde",
  "time",
  "wasm-bindgen",
  "winapi",
@@ -464,12 +465,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "creative_blogger"
+name = "creative-blogger"
 version = "0.1.0"
 dependencies = [
+ "chrono",
  "dioxus",
  "dioxus-desktop",
  "dioxus-web",
+ "mobile-entry-point",
  "reqwest",
  "serde",
 ]
@@ -1976,6 +1979,17 @@ dependencies = [
  "log",
  "wasi 0.11.0+wasi-snapshot-preview1",
  "windows-sys 0.48.0",
+]
+
+[[package]]
+name = "mobile-entry-point"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "81bef5a90018326583471cccca10424d7b3e770397b02f03276543cbb9b6a1a6"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
 ]
 
 [[package]]
