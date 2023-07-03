@@ -7,7 +7,7 @@ Vous devez avoir Rust installé sur votre OS : vous pouvez trouvez les informati
 
 Tout d'abord, exécutez cette commande (laissez-là s'exécuter si vous comptez modifier du code) :
 ```
-tailwindcss -i input.css -o public/tailwind.css --watch
+npx tailwindcss -i input.css -o public/tailwind.css --watch
 ```
 
 ## Application desktop
