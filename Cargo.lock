@@ -185,6 +185,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
+name = "bitmaps"
+version = "2.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "031043d04099746d8db04daf1fa424b2bc8bd69d92b25962dcde24da39ab64a2"
+dependencies = [
+ "typenum",
+]
+
+[[package]]
 name = "block"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -495,6 +504,7 @@ dependencies = [
  "dioxus-desktop",
  "dioxus-router",
  "dioxus-web",
+ "fermi",
  "mobile-entry-point",
  "reqwest",
  "serde",
@@ -619,7 +629,7 @@ version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5e24fd50a67f179f801ffe5316357d95c064676661614a38efd8902361dac9ef"
 dependencies = [
- "dioxus-core",
+ "dioxus-core 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "dioxus-core-macro",
  "dioxus-hooks",
  "dioxus-hot-reload",
@@ -647,6 +657,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "dioxus-core"
+version = "0.3.3"
+source = "git+https://github.com/dioxuslabs/dioxus#6a05fce39ab694ae63a0863657fcb23da6a12a25"
+dependencies = [
+ "bumpalo",
+ "bumpslab",
+ "futures-channel",
+ "futures-util",
+ "indexmap 1.9.3",
+ "log",
+ "longest-increasing-subsequence",
+ "rustc-hash",
+ "slab",
+ "smallbox",
+]
+
+[[package]]
 name = "dioxus-core-macro"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -665,7 +692,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "aa9a5e6f6c50cd4aab15d3a3c22c4747852f6c8abbd124a968f0111b119e5fa2"
 dependencies = [
  "core-foundation",
- "dioxus-core",
+ "dioxus-core 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "dioxus-html",
  "dioxus-interpreter-js",
  "dunce",
@@ -690,7 +717,7 @@ version = "0.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9e79849e59470c6cf94ba7e18655e3b0da927b2beaba6c0095963ca9531be3b2"
 dependencies = [
- "dioxus-core",
+ "dioxus-core 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "futures-channel",
  "log",
 ]
@@ -702,7 +729,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e478ed2d0f70aa51608e8672704e0f35925ddc7ad80a28d255bfe504dd5362bd"
 dependencies = [
  "chrono",
- "dioxus-core",
+ "dioxus-core 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "dioxus-html",
  "dioxus-rsx 0.0.3",
  "execute",
@@ -721,7 +748,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7682a6615e4e5a460cd3293ce420451abffb719c84c4b54e297b17365f601fb4"
 dependencies = [
  "async-trait",
- "dioxus-core",
+ "dioxus-core 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "dioxus-rsx 0.0.3",
  "enumset",
  "euclid",
@@ -755,12 +782,16 @@ dependencies = [
  "dioxus",
  "futures-channel",
  "futures-util",
+ "gloo-events",
+ "js-sys",
  "log",
  "serde",
  "serde_urlencoded",
  "simple_logger",
  "thiserror",
  "url",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]
@@ -769,7 +800,7 @@ version = "0.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42b7fee07fccc5c3fb9b341a0000db47fc4ab0a2a5bf268c71f6f1c9fd3ed598"
 dependencies = [
- "dioxus-core",
+ "dioxus-core 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "internment",
  "proc-macro2",
  "quote",
@@ -783,7 +814,7 @@ version = "0.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e8544632e20f462a64f26502c91e7cf6ae3b30d82956e70543644d2c16b6659d"
 dependencies = [
- "dioxus-core",
+ "dioxus-core 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "internment",
  "proc-macro2",
  "quote",
@@ -800,7 +831,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "console_error_panic_hook",
- "dioxus-core",
+ "dioxus-core 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "dioxus-html",
  "dioxus-interpreter-js",
  "futures-channel",
@@ -972,6 +1003,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d329bdeac514ee06249dabc27877490f17f5d371ec693360768b838e19f3ae10"
 dependencies = [
  "simd-adler32",
+]
+
+[[package]]
+name = "fermi"
+version = "0.3.0"
+source = "git+https://github.com/dioxuslabs/dioxus#6a05fce39ab694ae63a0863657fcb23da6a12a25"
+dependencies = [
+ "dioxus-core 0.3.3 (git+https://github.com/dioxuslabs/dioxus)",
+ "im-rc",
+ "log",
 ]
 
 [[package]]
@@ -1347,6 +1388,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "gloo-events"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "68b107f8abed8105e4182de63845afcc7b69c098b7852a813ea7462a320992fc"
+dependencies = [
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
 name = "gloo-timers"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1645,6 +1696,21 @@ dependencies = [
  "thread_local",
  "walkdir",
  "winapi-util",
+]
+
+[[package]]
+name = "im-rc"
+version = "15.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "af1955a75fa080c677d3972822ec4bad316169ab1cfc6c257a942c2265dbe5fe"
+dependencies = [
+ "bitmaps",
+ "rand_core 0.6.4",
+ "rand_xoshiro",
+ "serde",
+ "sized-chunks",
+ "typenum",
+ "version_check",
 ]
 
 [[package]]
@@ -2605,6 +2671,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "rand_xoshiro"
+version = "0.6.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6f97cdb2a36ed4183de61b2f824cc45c9f1037f28afe0a322e9fff4c108b5aaa"
+dependencies = [
+ "rand_core 0.6.4",
+]
+
+[[package]]
 name = "raw-window-handle"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2924,6 +2999,16 @@ name = "siphasher"
 version = "0.3.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7bd3e3206899af3f8b12af284fafc038cc1dc2b41d1b89dd17297221c5d225de"
+
+[[package]]
+name = "sized-chunks"
+version = "0.6.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "16d69225bde7a69b235da73377861095455d298f2b970996eec25ddbb42b3d1e"
+dependencies = [
+ "bitmaps",
+ "typenum",
+]
 
 [[package]]
 name = "slab"

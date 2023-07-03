@@ -3,12 +3,12 @@ mod structs;
 mod utils;
 
 use chrono::{DateTime, Local, Datelike, Timelike};
-use dioxus::prelude::*;
+use dioxus::{prelude::*, html::h2};
 #[cfg(not(target_arch = "wasm32"))]
 use dioxus_desktop::WindowBuilder;
 use dioxus_router::{Router, Route, Redirect};
 
-use crate::routes::{home::Home, not_found::NotFound};
+use crate::routes::{home::Home, not_found::NotFound, post::Post};
 
 const API_URL: &str = "https://api.creativeblogger.org";
 const ASSETS_PATH: &str = {
@@ -19,16 +19,23 @@ const ASSETS_PATH: &str = {
     path
 };
 
-fn get_human_date(timestamp: DateTime<Local>) -> String {
-    format!("{:02}/{:02}/{} à {:02}:{:02}:{:02}", timestamp.day(), timestamp.month(), timestamp.year(), timestamp.hour(), timestamp.minute(), timestamp.second())
-}
+struct Error(String);
 
 #[allow(non_snake_case)]
 fn App(cx: Scope) -> Element {
+    use_shared_state_provider(&cx, || Error("".to_string()));
+    let error = use_shared_state::<Error>(&cx).unwrap();
+    let string_error = error.read().0.to_owned();
+
     render! (
         Router {
+            h2 {
+                class: "absolute text-center top-0",
+                "{string_error}"
+            }
             Route { to: "/", Home {} }
-            Route { to: "/404", NotFound {}}
+            Route { to: "/posts/:slug", Post {} }
+            Route { to: "/404", NotFound {} }
             Redirect { from: "", to: "/404" }
         }
     )
