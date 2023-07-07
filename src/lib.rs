@@ -2,22 +2,17 @@ mod routes;
 mod structs;
 mod utils;
 
-use chrono::{DateTime, Local, Datelike, Timelike};
-use dioxus::{prelude::*, html::h2};
-#[cfg(not(target_arch = "wasm32"))]
+use dioxus::prelude::*;
 use dioxus_desktop::WindowBuilder;
 use dioxus_router::{Router, Route, Redirect};
 
-use crate::routes::{home::Home, not_found::NotFound, post::Post};
+use crate::routes::{home::Home, post::Post, not_found::NotFound};
 
 const API_URL: &str = "https://api.creativeblogger.org";
-const ASSETS_PATH: &str = {
-    #[cfg(target_arch = "wasm32")]
-    let path = ".";
-    #[cfg(not(target_arch = "wasm32"))]
-    let path = "public";
-    path
-};
+
+fn init_logging() {
+    simple_logger::SimpleLogger::new().init().unwrap();
+}
 
 struct Error(String);
 
@@ -41,14 +36,13 @@ fn App(cx: Scope) -> Element {
     )
 }
 
-fn main() {
-    #[cfg(not(target_arch = "wasm32"))]
+pub fn start_app() {
+    init_logging();
+
     dioxus_desktop::launch_cfg(
         App,
         dioxus_desktop::Config::new()
+            .with_window(WindowBuilder::default().with_title("Creative Blogger"))
             .with_custom_head(r#"<link rel="stylesheet" href="public/tailwind.css">"#.to_string())
-            .with_window(WindowBuilder::default().with_title("Creative Blogger App")),
     );
-    #[cfg(target_arch = "wasm32")]
-    dioxus_web::launch(App);
 }

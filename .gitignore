@@ -1,3 +1,9 @@
-/target
-/dist
-/gen
+# Rust
+target/
+**/*.rs.bk
+
+# cargo-mobile
+.cargo/
+
+# macOS
+.DS_Store

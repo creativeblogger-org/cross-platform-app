@@ -2,42 +2,22 @@
 name = "creative-blogger"
 description = "Un blog participatif"
 version = "0.1.0"
-edition = "2021"
+authors = ["Riccardo"]
+edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[[bin]]
+name = "creative-blogger-desktop"
+path = "gen/bin/desktop.rs"
 
 [dependencies]
-mobile-entry-point = "0.1.0"
-dioxus = "0.3.2"
-reqwest = { version = "0.11.18", features = ["json"] }
-serde = { version = "1.0.164", features = ["derive"] }
 chrono = { version = "0.4.26", features = ["serde"] }
-dioxus-router = { version = "0.3.0", features = ["web"] }
-fermi = { git = "https://github.com/dioxuslabs/dioxus" }
-
-[target.'cfg(not(target_family = "wasm"))'.dependencies]
+dioxus = "0.3.2"
 dioxus-desktop = "0.3.0"
-
-[target.'cfg(target_family = "wasm")'.dependencies]
-dioxus-web = "0.3.2"
-
-[package.metadata.bundle]
-name = "Creative Blogger"
-identifier = "org.creativeblogger.org"
-version = "1.0.0"
-copyright = "Copyright (c) Creative Blogger. All rights reserved."
-category = "Games"
-short_description = "Un blog participatif"
-long_description = """
-Ce blog a pour but de partager du savoir etcccccc
-"""
-
-# leave the `lib` declaration
-# [lib]
-# crate-type = ["staticlib", "cdylib", "rlib"]
-
-
-# leave the binary it generates for us
-# [[bin]]
-# name = "dioxus-ios-demo-desktop"
-# path = "gen/bin/desktop.rs"
+dioxus-router = "0.3.0"
+mobile-entry-point = "0.1.0"
+reqwest = { version = "0.11.18", features = ["json"] }
+serde = { version = "1.0.167", features = ["derive"] }
+simple_logger = "4.2.0"
