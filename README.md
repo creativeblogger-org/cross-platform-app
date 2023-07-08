@@ -9,11 +9,6 @@ Application cross-platforme (desktop et mobile) pour Creative Blogger.
 
 Vous devez avoir Rust installé sur votre OS : vous pouvez trouvez les informations [ici](https://www.rust-lang.org/tools/install).
 
-Tout d'abord, exécutez cette commande (laissez-là s'exécuter si vous comptez modifier du code) :
-```
-npx tailwindcss -i input.css -o public/tailwind.css --watch
-```
-
 # Application desktop
 [Installez les dépendances listées ici selon votre OS](https://dioxuslabs.com/docs/0.3/guide/en/getting_started/desktop.html#platform-specific-dependencies)
 
