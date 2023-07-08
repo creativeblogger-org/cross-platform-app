@@ -5,7 +5,6 @@ use super::{user::Author, comment::Comment};
 
 #[derive(Debug, Deserialize)]
 pub struct PreviewPost {
-    id: u128,
     pub title: String,
     pub slug: String,
     pub created_at: DateTime<Utc>,
@@ -13,13 +12,14 @@ pub struct PreviewPost {
     pub author: Author,
     pub description: String,
     //changement bientôt en Vec<String>
-    tags: String,
-    has_permission: bool
+    pub tags: String,
+    pub image: String,
+    pub has_permission: bool
 }
 
 #[derive(Debug, Deserialize, Default)]
 pub struct Post {
-    id: u128,
+    pub id: u128,
     pub title: String,
     pub slug: String,
     pub content: String,
@@ -27,8 +27,7 @@ pub struct Post {
     pub updated_at: DateTime<Utc>,
     pub author: Author,
     pub description: String,
-    //changement bientôt en Vec<String>
-    tags: String,
-    has_permission: bool,
-    comments: Vec<Comment>
+    pub tags: String,
+    pub has_permission: bool,
+    pub comments: Vec<Comment>
 }

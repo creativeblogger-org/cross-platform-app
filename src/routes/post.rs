@@ -1,7 +1,8 @@
+use chrono::Local;
 use dioxus::prelude::*;
 use dioxus_router::{use_route, Link};
 
-use crate::{Error, structs::post::Post, API_URL};
+use crate::{Error, structs::post::Post, API_URL, utils::get_human_date};
 
 #[allow(non_snake_case)]
 pub fn Post(cx: Scope) -> Element {
@@ -23,14 +24,14 @@ pub fn Post(cx: Scope) -> Element {
                 Ok(res) => res,
                 Err(e) => {
                     error.write().0 = e.to_string();
-                    return ();
+                    return;
                 }
             };
             let received_post: Post = match res.json().await {
                 Ok(post) => post,
                 Err(e) => {
                     error.write().0 = e.to_string();
-                    return ();
+                    return;
                 }
             };
             post.set(received_post);
@@ -39,13 +40,52 @@ pub fn Post(cx: Scope) -> Element {
 
     render! {
         rsx! {
-            div {
-                class: "bg-black text-white text-center text-xl p-16 w-screen h-screen",
-                div {
-                    class: "",
-                    h1 {
-                        class: "font-bold",
-                        "{post.title}"
+            if !post.author.username.is_empty() {
+                rsx! {
+                    div {
+                        class: "bg-black text-white text-center p-16 w-screen min-h-screen",
+                        div {
+                            class: "",
+                            h1 {
+                                class: "text-3xl font-bold",
+                                "{post.title}"
+                            }
+                            Link {
+                                to: "/@{post.author.username}",
+                                "@{post.author.username}"
+                            }
+                            p {format!("Créé le {}", get_human_date(post.created_at.with_timezone(&Local)))}
+                            if post.created_at != post.updated_at {
+                                rsx! {
+                                    p {
+                                        format!("Modifié le {}", get_human_date(post.updated_at.with_timezone(&Local)))
+                                    }
+                                }
+                            }
+                            div {
+                                class: "text-left",
+                                p {
+                                    "{post.content}"
+                                }
+                            }
+                            p {
+                                class: "text-xl",
+                                "Commentaires"
+                            }
+                            div {
+                                class: "comments text-left",
+                                for comment in post.comments.iter() {
+                                    div {
+                                        p {
+                                            "{comment.author.username}"
+                                        }
+                                        p {
+                                            "{comment.content}"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

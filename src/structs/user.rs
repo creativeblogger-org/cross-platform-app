@@ -2,12 +2,13 @@ use serde::Deserialize;
 
 #[derive(Debug, Deserialize, Default)]
 pub struct Author {
-    id: u128,
     pub username: String,
-    pub permission: u8
+    pub permission: PermissionLevel
 }
 
+#[derive(Debug, Deserialize, Default)]
 pub enum PermissionLevel {
+    #[default]
     Membre,
     Rédacteur,
     Modérateur,

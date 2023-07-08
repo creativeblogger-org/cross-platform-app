@@ -16,7 +16,7 @@ pub fn Home(cx: Scope) -> Element {
                 Ok(res) => res,
                 Err(e) => {
                     error.write().0 = e.to_string();
-                    return ();
+                    return;
                 }
             };
 
@@ -24,7 +24,7 @@ pub fn Home(cx: Scope) -> Element {
                 Ok(posts) => posts,
                 Err(e) => {
                     error.write().0 = e.to_string();
-                    return ();
+                    return;
                 }
             };
 
@@ -35,7 +35,7 @@ pub fn Home(cx: Scope) -> Element {
     render! (
         rsx! {
             div {
-                class: "bg-black w-screen min-h-screen",
+                class: "bg-black w-full min-h-screen",
                 div {
                     class: "text-white p-4 grid grid-cols-3",
                     for post in posts.iter() {
@@ -47,9 +47,22 @@ pub fn Home(cx: Scope) -> Element {
                                     class: "font-bold text-2xl",
                                     post.title.to_string()
                                 }
-                                p {format!("@{}", post.author.username)}
-                                p {format!("Créé le {}", get_human_date(post.created_at.with_timezone(&Local)))}
-                                p {format!("Modifié le {}", get_human_date(post.updated_at.with_timezone(&Local)))}
+                                Link {
+                                    to: "/@{post.author.username}",
+                                    p {
+                                        "@{post.author.username}"
+                                    }
+                                }
+                                p {
+                                    "Créé le {get_human_date(post.created_at.with_timezone(&Local))}"
+                                }
+                                if post.created_at != post.updated_at {
+                                    rsx! {
+                                        p {
+                                            "Modifié le {get_human_date(post.updated_at.with_timezone(&Local))}"
+                                        }
+                                    }
+                                }
                                 p {post.description.to_string()}
                             }
                         }
