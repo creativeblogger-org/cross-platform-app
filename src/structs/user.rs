@@ -3,7 +3,7 @@ use serde::Deserialize;
 #[derive(Debug, Deserialize, Default)]
 pub struct Author {
     pub username: String,
-    pub permission: PermissionLevel
+    pub permission: u8
 }
 
 #[derive(Debug, Deserialize, Default)]

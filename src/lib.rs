@@ -14,6 +14,7 @@ fn init_logging() {
     simple_logger::SimpleLogger::new().init().unwrap();
 }
 
+#[derive(PartialEq)]
 struct Error(String);
 
 #[allow(non_snake_case)]
@@ -24,9 +25,12 @@ fn App(cx: Scope) -> Element {
 
     render! (
         Router {
-            h2 {
-                class: "absolute text-center top-0",
-                "{string_error}"
+            div {
+                class: "text-center absolute top-0",
+                h2 {
+                    class: "text-red-600",
+                    "{string_error}"
+                }
             }
             Route { to: "/", Home {} }
             Route { to: "/posts/:slug", Post {} }

@@ -7,6 +7,7 @@ use crate::{Error, structs::post::Post, API_URL, utils::get_human_date};
 #[allow(non_snake_case)]
 pub fn Post(cx: Scope) -> Element {
     let post = use_state(&cx, || Post::default());
+    let is_loading = use_state(cx, || true);
     let route = use_route(&cx);
     let error = use_shared_state::<Error>(&cx).unwrap();
 
@@ -18,11 +19,13 @@ pub fn Post(cx: Scope) -> Element {
     };
 
     use_future(cx, (), |_| {
-        to_owned![post, error, slug];
+        to_owned![post, error, slug, is_loading];
         async move {
+            is_loading.set(true);
             let res = match reqwest::get(format!("{}/posts/{}", API_URL, slug)).await {
                 Ok(res) => res,
                 Err(e) => {
+                    is_loading.set(false);
                     error.write().0 = e.to_string();
                     return;
                 }
@@ -30,17 +33,31 @@ pub fn Post(cx: Scope) -> Element {
             let received_post: Post = match res.json().await {
                 Ok(post) => post,
                 Err(e) => {
+                    is_loading.set(false);
                     error.write().0 = e.to_string();
                     return;
                 }
             };
+            is_loading.set(false);
             post.set(received_post);
         }
     });
 
     render! {
         rsx! {
-            if !post.author.username.is_empty() {
+            if *is_loading.get() {
+                rsx! {
+                    p {
+                        "Chargement des posts..."
+                    }
+                }
+            } else if post.author.username.is_empty() {
+                rsx! {
+                    Link {
+                        to: "/404"
+                    }
+                }
+            } else {
                 rsx! {
                     div {
                         class: "bg-black text-white text-center p-16 w-screen min-h-screen",
