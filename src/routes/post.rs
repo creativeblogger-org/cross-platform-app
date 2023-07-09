@@ -48,10 +48,10 @@ pub fn Post(cx: Scope) -> Element {
             if *is_loading.get() {
                 rsx! {
                     p {
-                        "Chargement des posts..."
+                        "Chargement du post..."
                     }
                 }
-            } else if post.author.username.is_empty() {
+            } else if post.id == 0 {
                 rsx! {
                     Link {
                         to: "/404"
@@ -60,45 +60,42 @@ pub fn Post(cx: Scope) -> Element {
             } else {
                 rsx! {
                     div {
-                        class: "bg-black text-white text-center p-16 w-screen min-h-screen",
-                        div {
-                            class: "",
-                            h1 {
-                                class: "text-3xl font-bold",
-                                "{post.title}"
-                            }
-                            Link {
-                                to: "/@{post.author.username}",
-                                "@{post.author.username}"
-                            }
-                            p {format!("Créé le {}", get_human_date(post.created_at.with_timezone(&Local)))}
-                            if post.created_at != post.updated_at {
-                                rsx! {
-                                    p {
-                                        format!("Modifié le {}", get_human_date(post.updated_at.with_timezone(&Local)))
-                                    }
-                                }
-                            }
-                            div {
-                                class: "text-left",
+                        class: "bg-black text-white text-center p-16 w-full min-h-screen",
+                        h1 {
+                            class: "text-3xl font-bold",
+                            "{post.title}"
+                        }
+                        Link {
+                            to: "/@{post.author.username}",
+                            "@{post.author.username}"
+                        }
+                        p {format!("Créé le {}", get_human_date(post.created_at.with_timezone(&Local)))}
+                        if post.created_at != post.updated_at {
+                            rsx! {
                                 p {
-                                    "{post.content}"
+                                    format!("Modifié le {}", get_human_date(post.updated_at.with_timezone(&Local)))
                                 }
                             }
+                        }
+                        div {
+                            class: "text-left",
                             p {
-                                class: "text-xl",
-                                "Commentaires"
+                                "{post.content}"
                             }
-                            div {
-                                class: "comments text-left",
-                                for comment in post.comments.iter() {
-                                    div {
-                                        p {
-                                            "{comment.author.username}"
-                                        }
-                                        p {
-                                            "{comment.content}"
-                                        }
+                        }
+                        p {
+                            class: "text-xl",
+                            "Commentaires"
+                        }
+                        div {
+                            class: "comments text-left",
+                            for comment in post.comments.iter() {
+                                div {
+                                    p {
+                                        "{comment.author.username}"
+                                    }
+                                    p {
+                                        "{comment.content}"
                                     }
                                 }
                             }
