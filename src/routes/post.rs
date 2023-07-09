@@ -26,16 +26,14 @@ pub fn Post(cx: Scope) -> Element {
                 Ok(res) => res,
                 Err(e) => {
                     is_loading.set(false);
-                    error.write().0 = e.to_string();
-                    return;
+                    return error.write().0 = e.to_string();
                 }
             };
             let received_post: Post = match res.json().await {
                 Ok(post) => post,
                 Err(e) => {
                     is_loading.set(false);
-                    error.write().0 = e.to_string();
-                    return;
+                    return error.write().0 = e.to_string();
                 }
             };
             is_loading.set(false);
@@ -45,57 +43,59 @@ pub fn Post(cx: Scope) -> Element {
 
     render! {
         rsx! {
-            if *is_loading.get() {
-                rsx! {
-                    p {
-                        "Chargement du post..."
-                    }
-                }
-            } else if post.id == 0 {
-                rsx! {
-                    Link {
-                        to: "/404"
-                    }
-                }
-            } else {
-                rsx! {
-                    div {
-                        class: "bg-black text-white text-center p-16 w-full min-h-screen",
-                        h1 {
-                            class: "text-3xl font-bold",
-                            "{post.title}"
+            div {
+                class: "bg-black text-white text-center p-16 w-full min-h-screen",
+                if *is_loading.get() {
+                    rsx! {
+                        p {
+                            "Chargement du post..."
                         }
+                    }
+                } else if post.id == 0 && error.read().0.is_empty() {
+                    rsx! {
                         Link {
-                            to: "/@{post.author.username}",
-                            "@{post.author.username}"
+                            to: "/404"
                         }
-                        p {format!("Créé le {}", get_human_date(post.created_at.with_timezone(&Local)))}
-                        if post.created_at != post.updated_at {
-                            rsx! {
-                                p {
-                                    format!("Modifié le {}", get_human_date(post.updated_at.with_timezone(&Local)))
+                    }
+                } else if error.read().0.is_empty() {
+                    rsx! {
+                        div {
+                            h1 {
+                                class: "text-3xl font-bold",
+                                "{post.title}"
+                            }
+                            Link {
+                                to: "/@{post.author.username}",
+                                "@{post.author.username}"
+                            }
+                            p {format!("Créé le {}", get_human_date(post.created_at.with_timezone(&Local)))}
+                            if post.created_at != post.updated_at {
+                                rsx! {
+                                    p {
+                                        format!("Modifié le {}", get_human_date(post.updated_at.with_timezone(&Local)))
+                                    }
                                 }
                             }
-                        }
-                        div {
-                            class: "text-left",
-                            p {
-                                "{post.content}"
+                            div {
+                                class: "text-left",
+                                p {
+                                    "{post.content}"
+                                }
                             }
-                        }
-                        p {
-                            class: "text-xl",
-                            "Commentaires"
-                        }
-                        div {
-                            class: "comments text-left",
-                            for comment in post.comments.iter() {
-                                div {
-                                    p {
-                                        "{comment.author.username}"
-                                    }
-                                    p {
-                                        "{comment.content}"
+                            p {
+                                class: "text-xl",
+                                "Commentaires"
+                            }
+                            div {
+                                class: "comments text-left",
+                                for comment in post.comments.iter() {
+                                    div {
+                                        p {
+                                            "{comment.author.username}"
+                                        }
+                                        p {
+                                            "{comment.content}"
+                                        }
                                     }
                                 }
                             }

@@ -18,8 +18,7 @@ pub fn Home(cx: Scope) -> Element {
                 Ok(res) => res,
                 Err(e) => {
                     is_loading.set(false);
-                    error.write().0 = e.to_string();
-                    return;
+                    return error.write().0 = e.to_string();
                 }
             };
 
@@ -27,8 +26,7 @@ pub fn Home(cx: Scope) -> Element {
                 Ok(posts) => posts,
                 Err(e) => {
                     is_loading.set(false);
-                    error.write().0 = e.to_string();
-                    return;
+                    return error.write().0 = e.to_string();
                 }
             };
 
@@ -50,7 +48,7 @@ pub fn Home(cx: Scope) -> Element {
                                 "Chargement..."
                             }
                         }
-                    } else if posts.len() == 0 {
+                    } else if posts.len() == 0 && error.read().0.is_empty() {
                         rsx! {
                             p {
                                 "Pas de post pour le moment"
