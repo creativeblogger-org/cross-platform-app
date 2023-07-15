@@ -61,6 +61,6 @@ pub fn start_app() {
         dioxus_desktop::Config::new()
             .with_window(dioxus_desktop::WindowBuilder::default().with_title("Creative Blogger"))
             //.with_custom_head(r#"<link rel="stylesheet" href="public/tailwind.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap">"#.to_string()),
-            .with_custom_head(r#"<link rel="stylesheet" href="public/tailwind.css">"#.to_string()),
+            .with_custom_head(r#"<link rel="stylesheet" href="public/tailwind.css"><style>@font-face {font-display: swap; font-family: "Pangolin"; font-size: normal; font-weight: normal;src: url('./public/fonts/pangolin-v11-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-regular.woff2') format('woff2');}</style>"#.to_string()),
     );
 }
