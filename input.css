@@ -1,26 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/*@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
-@font-face {
-  font-family: Pangolin;
-  src: url("./public/Pangolin-Regular.ttf") format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}*/
 
-/* pangolin-regular - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
-
-/*@font-face {
-  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-  /*font-family: 'Pangolin';
-  font-style: normal;
-  font-weight: 400;
-  src: url('./public/fonts/pangolin-v11-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-regular.woff2') format('woff2'); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-/*}*/
-
-/*@layer base {
-  html {
-    font-family: Pangolin, system-ui, sans-serif;
+@layer components {
+  .navbar-link {
+    @apply text-transparent bg-clip-text bg-gradient-to-br from-teal-500 to-indigo-500;
   }
-}*/
+}

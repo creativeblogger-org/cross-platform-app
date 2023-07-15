@@ -6,7 +6,7 @@ pub fn Header(cx: Scope) -> Element {
     render! {
         rsx! {
             div {
-                class: "bg-black text-white text-center p-3 font-pangolin",
+                class: "bg-black text-center p-3 font-pangolin",
                 img {
                     class: "mx-auto",
                     src: "./public/images/cb_logo.png",
@@ -16,8 +16,28 @@ pub fn Header(cx: Scope) -> Element {
                 }
                 Link {
                     to: "/",
-                    class: "text-2xl",
+                    class: "text-4xl navbar-link",
                     "Creative Blogger"
+                }
+                div {
+                    class: "flex justify-between",
+                    p {
+                        class: "text-xl navbar-link",
+                        "Plus"
+                    }
+                    div {
+                        class: "text-xl",
+                        Link {
+                            to: "/login",
+                            class: "p-2 navbar-link border-teal-500 hover:border-b-2",
+                            "Se connecter"
+                        }
+                        Link {
+                            to: "/register",
+                            class: "p-2 navbar-link border-teal-500 hover:border-b-2",
+                            "Créer un compte"
+                        }
+                    }
                 }
             }
         }

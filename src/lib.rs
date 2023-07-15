@@ -11,7 +11,7 @@ use crate::{
     routes::{home::Home, not_found::NotFound, post::Post},
 };
 
-const API_URL: &str = "https://api.creativeblogger.org";
+const API_URL: &str = "http://localhost:3333";
 
 fn init_logging() {
     #[cfg(not(target_os = "android"))]
