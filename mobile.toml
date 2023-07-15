@@ -2,4 +2,4 @@
 name = "creative-blogger"
 stylized-name = "Creative Blogger"
 domain = "org.creativeblogger.org"
-template-pack = "winit"
+template-pack = "wgpu"

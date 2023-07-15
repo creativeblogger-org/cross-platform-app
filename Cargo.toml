@@ -16,8 +16,8 @@ long_description = """
 Cette application est un blog participatif
 """
 
-[lib]
-crate-type = ["staticlib", "cdylib", "rlib"]
+#[lib]
+#crate-type = ["staticlib", "cdylib", "rlib"]
 
 [[bin]]
 name = "creative-blogger-desktop"
@@ -26,10 +26,19 @@ path = "gen/bin/desktop.rs"
 [dependencies]
 chrono = { version = "0.4.26", features = ["serde"] }
 dioxus = "0.3.2"
+#dioxus_markdown = { git = "https://github.com/DioxusLabs/markdown", version = "0.1.0" }
+reqwest = { version = "0.11.18", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1.0.171", features = ["derive"] }
 dioxus-desktop = "0.3.0"
 dioxus-router = "0.3.0"
-dioxus_markdown = { git = "https://github.com/DioxusLabs/markdown", version = "0.1.0" }
-mobile-entry-point = "0.1.0"
-reqwest = { version = "0.11.18", default-features = false, features = ["json", "rustls-tls"] }
-serde = { version = "1.0.167", features = ["derive"] }
+log = "0.4.19"
+
+[target."cfg(not(target_os = \"android\"))".dependencies]
 simple_logger = "4.2.0"
+
+[target."cfg(target_os = \"android\")".dependencies]
+android_logger = "0.13.1"
+mobile-entry-point = "0.1.1"
+
+#[web.watcher]
+#index_on_404 = true

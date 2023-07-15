@@ -1,17 +1,25 @@
+mod header;
 mod routes;
 mod structs;
 mod utils;
 
 use dioxus::prelude::*;
-use dioxus_desktop::WindowBuilder;
-use dioxus_router::{Router, Route, Redirect};
+use dioxus_router::{Redirect, Route, Router};
 
-use crate::routes::{home::Home, post::Post, not_found::NotFound};
+use crate::{
+    header::Header,
+    routes::{home::Home, not_found::NotFound, post::Post},
+};
 
 const API_URL: &str = "https://api.creativeblogger.org";
 
 fn init_logging() {
+    #[cfg(not(target_os = "android"))]
     simple_logger::SimpleLogger::new().init().unwrap();
+    #[cfg(target_os = "android")]
+    android_logger::init_once(
+        android_logger::Config::default().with_max_level(log::LevelFilter::Trace),
+    )
 }
 
 #[derive(PartialEq)]
@@ -25,13 +33,18 @@ fn App(cx: Scope) -> Element {
 
     render! (
         Router {
-            div {
-                class: "text-center absolute top-0",
-                h2 {
-                    class: "text-red-600",
-                    "{string_error}"
+            if !string_error.is_empty() {
+                rsx! {
+                    div {
+                        class: "text-center absolute w-full top-0 p-3 bg-white opacity-75",
+                        h2 {
+                            class: "text-red-600 font-bold",
+                            "{string_error}"
+                        }
+                    }
                 }
             }
+            Header {}
             Route { to: "/", Home {} }
             Route { to: "/posts/:slug", Post {} }
             Route { to: "/404", NotFound {} }
@@ -46,7 +59,8 @@ pub fn start_app() {
     dioxus_desktop::launch_cfg(
         App,
         dioxus_desktop::Config::new()
-            .with_window(WindowBuilder::default().with_title("Creative Blogger"))
-            .with_custom_head(r#"<link rel="stylesheet" href="public/tailwind.css">"#.to_string())
+            .with_window(dioxus_desktop::WindowBuilder::default().with_title("Creative Blogger"))
+            //.with_custom_head(r#"<link rel="stylesheet" href="public/tailwind.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap">"#.to_string()),
+            .with_custom_head(r#"<link rel="stylesheet" href="public/tailwind.css">"#.to_string()),
     );
 }

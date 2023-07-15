@@ -1,5 +1,5 @@
 /*
-! tailwindcss v3.3.2 | MIT License | https://tailwindcss.com
+! tailwindcss v3.3.3 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -191,6 +191,10 @@ select,
 textarea {
   font-family: inherit;
   /* 1 */
+  font-feature-settings: inherit;
+  /* 1 */
+  font-variation-settings: inherit;
+  /* 1 */
   font-size: 100%;
   /* 1 */
   font-weight: inherit;
@@ -342,6 +346,14 @@ menu {
 }
 
 /*
+Reset default styling for dialogs.
+*/
+
+dialog {
+  padding: 0;
+}
+
+/*
 Prevent resizing textareas horizontally by default.
 */
 
@@ -420,6 +432,26 @@ video {
 
 [hidden] {
   display: none;
+}
+
+@font-face {
+  font-display: swap;
+
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+
+  font-family: 'Pangolin';
+
+  font-style: normal;
+
+  font-weight: 400;
+
+  src: url('./public/fonts/pangolin-v11-cyrillic_cyrillic-ext_latin_latin-ext_vietnamese-regular.woff2') format('woff2');
+
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+html {
+  font-family: Pangolin, system-ui, sans-serif;
 }
 
 *, ::before, ::after {
@@ -534,6 +566,11 @@ video {
   margin: 1rem;
 }
 
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .grid {
   display: grid;
 }
@@ -544,10 +581,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-screen {
-  width: 100vw;
 }
 
 .grid-cols-3 {
@@ -568,8 +601,17 @@ video {
   background-color: rgb(2 6 23 / var(--tw-bg-opacity));
 }
 
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .p-16 {
   padding: 4rem;
+}
+
+.p-3 {
+  padding: 0.75rem;
 }
 
 .p-4 {
@@ -582,6 +624,10 @@ video {
 
 .text-center {
   text-align: center;
+}
+
+.font-pangolin {
+  font-family: Pangolin, cursive;
 }
 
 .text-2xl {
@@ -603,15 +649,29 @@ video {
   font-weight: 700;
 }
 
+.text-red-600 {
+  --tw-text-opacity: 1;
+  color: rgb(220 38 38 / var(--tw-text-opacity));
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-red-600 {
-  --tw-text-opacity: 1;
-  color: rgb(220 38 38 / var(--tw-text-opacity));
+.opacity-75 {
+  opacity: 0.75;
 }
+
+/*@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+@font-face {
+  font-family: Pangolin;
+  src: url("./public/Pangolin-Regular.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}*/
+
+/* pangolin-regular - cyrillic_cyrillic-ext_latin_latin-ext_vietnamese */
 
 .hover\:font-bold:hover {
   font-weight: 700;
